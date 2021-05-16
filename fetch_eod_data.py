@@ -1,6 +1,7 @@
 from db.model import *
 from download import *
 from db.dao.equity_dao import StocksDao
+import traceback
 
 if __name__ == '__main__':
 
@@ -31,7 +32,7 @@ if __name__ == '__main__':
                 adj_close = row['Adj Close']
 
                 equity_eod_data = EquityEodData(equity_id=equity_id, trading_date=trade_date, open=open, low=low,
-                                                high=high, close=close, adj_close=adj_close, volume=volume)
+                                                high=high, close=close, adj_close=adj_close, volume=volume, data_source='YAHOO')
                 insert_list.append(equity_eod_data)
 
             dao.bulk_save(insert_list)
@@ -39,6 +40,7 @@ if __name__ == '__main__':
             print('Completed insertion for ticker {}'.format(ticker))
         except Exception as e:
             print('Data not found for ticker {} with error as {}'.format(ticker, data_one['chart']['error']))
+            traceback.print_exc()
         finally:
             dao.rollback()
 

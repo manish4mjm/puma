@@ -25,6 +25,7 @@ class EquityEodData(Base):
     close = Column(Numeric, nullable=False)
     adj_close = Column(Numeric, nullable=False)
     volume = Column(Numeric, nullable=False)
+    data_source = Column(String, nullable=False)
 
 
 class EquityIndicators(Base):
