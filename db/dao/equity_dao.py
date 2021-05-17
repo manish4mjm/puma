@@ -19,3 +19,8 @@ class StocksDao(GenericSqlAlchemyDao):
         statement = self.session.query(Equity).statement
         data_df = pd.read_sql(statement, self.session.bind)
         return data_df
+
+    def get_all_stocks_prices(self):
+        statement = self.session.query(EquityEodData).order_by(EquityEodData.trading_date).statement
+        data_df = pd.read_sql(statement, self.session.bind)
+        return data_df
