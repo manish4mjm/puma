@@ -27,8 +27,8 @@ if __name__ == '__main__':
             for idx, row in data_df.iterrows():
                 trade_date = idx
                 rec_med = row['RECMED']
-                rec_count = row['RECCON']
-                rec_avg = row['RECNO']
+                rec_count = row['RECNO']
+                rec_avg = row['RECCON']
 
                 equity_anr_data = EquityAnrData(equity_id=equity_id, trading_date=trade_date, anr_reco=rec_avg,
                                                 anr_count=rec_count, anr_med=rec_med)
