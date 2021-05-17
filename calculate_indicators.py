@@ -57,6 +57,7 @@ if __name__ == '__main__':
             # MACD Indicator
             indicator_macd = MACD(close=df["adj_close"])
             df['macd'] = indicator_macd.macd()
+            # df = df.dropna(how='all)
 
             for idx, row in df.iterrows():
                 trade_date = row['trading_date']
