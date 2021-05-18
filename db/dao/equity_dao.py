@@ -28,7 +28,7 @@ class StocksDao(GenericSqlAlchemyDao):
     def get_stock_info_by_date(self, date):
         filters = [(EquityEodData.trading_date == date)]
 
-        statement = self.session.query(Equity.local_code,
+        statement = self.session.query(Equity.local_code, Equity.comp_name, Equity.sector,
                                        EquityEodData.close, EquityEodData.adj_close, EquityAnrData.anr_count,
                                        EquityAnrData.anr_med, EquityAnrData.anr_reco,
                                        EquityIndicators.rsi_14, EquityIndicators.rsi_6, EquityIndicators.macd,
