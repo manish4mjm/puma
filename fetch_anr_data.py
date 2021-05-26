@@ -3,14 +3,16 @@ from download import *
 from db.dao.equity_dao import StocksDao
 import traceback
 import PyDSWS
+import datetime as dt
 
 if __name__ == '__main__':
 
+    exchange = 'HEX'
     start_date = '20160101'
-    end_date = '20210514'
+    end_date = dt.date.today().strftime('%Y%m%d')
 
     dao = StocksDao()
-    equity_ref_df = dao.get_all_stocks()
+    equity_ref_df = dao.get_all_stocks(exchange)
 
     conn = PyDSWS.Datastream(username='ZINX001', password='PEACH709')
 

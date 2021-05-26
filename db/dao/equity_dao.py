@@ -15,18 +15,24 @@ class StocksDao(GenericSqlAlchemyDao):
     def __del__(self):
         super().__del__()
 
-    def get_all_stocks(self):
-        statement = self.session.query(Equity).statement
+    def get_all_stocks(self, exchange):
+        filters = [(Equity.exchange == exchange)]
+        statement = self.session.query(Equity).filter(and_(*filters)).statement
         data_df = pd.read_sql(statement, self.session.bind)
         return data_df
 
-    def get_all_stocks_prices(self):
-        statement = self.session.query(EquityEodData).order_by(EquityEodData.trading_date).statement
+    def get_all_stocks_prices(self, exchange):
+        filters = [(Equity.exchange == exchange)]
+        statement = self.session.query(EquityEodData).order_by(EquityEodData.trading_date) \
+            .join(Equity, Equity.equity_id == EquityEodData.equity_id) \
+            .order_by(EquityEodData.trading_date) \
+            .filter(and_(*filters)).statement
         data_df = pd.read_sql(statement, self.session.bind)
         return data_df
 
-    def get_stock_info_by_date(self, date):
-        filters = [(EquityEodData.trading_date == date)]
+    def get_stock_info_by_date(self, exchange, date):
+        filters = [(EquityEodData.trading_date == date),
+                   (Equity.exchange == exchange)]
 
         statement = self.session.query(Equity.local_code, Equity.comp_name, Equity.sector,
                                        EquityEodData.close, EquityEodData.adj_close, EquityAnrData.anr_count,

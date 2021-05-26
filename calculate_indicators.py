@@ -11,9 +11,10 @@ import traceback
 
 if __name__ == '__main__':
 
+    exchange='HEX'
     dao = StocksDao()
-    equity_ref_df = dao.get_all_stocks()
-    eod_df = dao.get_all_stocks_prices()
+    equity_ref_df = dao.get_all_stocks(exchange)
+    eod_df = dao.get_all_stocks_prices(exchange)
 
     for idx1, row1 in equity_ref_df.iterrows():
         equity_id = row1['equity_id']
