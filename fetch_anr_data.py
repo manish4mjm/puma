@@ -4,10 +4,11 @@ from db.dao.equity_dao import StocksDao
 import traceback
 import PyDSWS
 import datetime as dt
+from constants import *
 
 if __name__ == '__main__':
 
-    exchange = 'SGX'
+    exchange = NASDAQ
     # start_date = '20160101'
     start_date = (dt.datetime.now() - dt.timedelta(days=5)).strftime('%Y%m%d')
     end_date = dt.date.today().strftime('%Y%m%d')

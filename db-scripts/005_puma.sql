@@ -36,7 +36,7 @@ insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchan
 insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchange, currency, isin) values ('BROADMARK REALTY CAPITAL', 'Financial Services', 'BRMK', 'BRMK.K', 'U:BRMK', 'NYSE', 'USD', 'US11135B1008');
 insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchange, currency, isin) values ('BOSTON SCIENTIFIC', 'Health Care', 'BSX', 'BSX', 'U:BSX', 'NYSE', 'USD', 'US1011371077');
 insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchange, currency, isin) values ('BOSTON PROPERTIES', 'Real Estate', 'BXP', 'BXP', 'U:BXP', 'NYSE', 'USD', 'US1011211018');
-insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchange, currency, isin) values ('CITIGROUP', 'Banks', , , 'U:C', 'NYSE', 'USD', 'US1729674242');
+insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchange, currency, isin) values ('CITIGROUP', 'Banks', 'C', 'C', 'U:C', 'NYSE', 'USD', 'US1729674242');
 insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchange, currency, isin) values ('CROWN CASTLE INTL.', 'Real Estate', 'CCI', 'CCI', 'U:CCI', 'NYSE', 'USD', 'US22822V1017');
 insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchange, currency, isin) values ('CARNIVAL', 'Travel & Leisure', 'CCL', 'CCL', 'U:CCL', 'NYSE', 'USD', 'PA1436583006');
 insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchange, currency, isin) values ('CITIZENS FINANCIAL GROUP', 'Banks', 'CFG', 'CFG', 'U:CFG', 'NYSE', 'USD', 'US1746101054');
@@ -376,7 +376,7 @@ insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchan
 insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchange, currency, isin) values ('TRAVELERS COS.', 'Insurance', 'TRV', 'TRV', 'U:TRV', 'NYSE', 'USD', 'US89417E1091');
 insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchange, currency, isin) values ('CLOUDERA', 'Technology', 'CLDR', 'CLDR.K', 'U:CLDR', 'NYSE', 'USD', 'US18914U1007');
 insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchange, currency, isin) values ('TEVA PHARMACEUTICAL INDUSTRIES ADR 1:1', 'Health Care', 'TEVA', 'TEVA.K', 'U:TEVA', 'NYSE', 'USD', 'US8816242098');
-insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchange, currency, isin) values ('AGILENT TECHS.', 'Health Care', , , 'U:A', 'NYSE', 'USD', 'US00846U1016');
+insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchange, currency, isin) values ('AGILENT TECHS.', 'Health Care', 'A', 'A', 'U:A', 'NYSE', 'USD', 'US00846U1016');
 insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchange, currency, isin) values ('CARDINAL HEALTH', 'Health Care', 'CAH', 'CAH', 'U:CAH', 'NYSE', 'USD', 'US14149Y1082');
 insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchange, currency, isin) values ('LABORATORY CORP.OF AM. HDG.', 'Health Care', 'LH', 'LH', 'U:LH', 'NYSE', 'USD', 'US50540R4092');
 insert into ref.equity (comp_name, sector, local_code, ric_code, ds_code, exchange, currency, isin) values ('ELI LILLY', 'Health Care', 'LLY', 'LLY', 'U:LLY', 'NYSE', 'USD', 'US5324571083');

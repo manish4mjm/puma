@@ -3,10 +3,11 @@ from download import *
 from db.dao.equity_dao import StocksDao
 import traceback
 import datetime as dt
+from constants import *
 
 if __name__ == '__main__':
 
-    exchange = 'SGX'
+    exchange = NASDAQ
     start_date = '2005-01-01'
     end_date = dt.date.today().strftime('%Y-%m-%d')
 
@@ -16,6 +17,10 @@ if __name__ == '__main__':
         equity_ref_df['y_ticker'] = equity_ref_df['ric_code']
     elif exchange == 'SGX':
         equity_ref_df['y_ticker'] = equity_ref_df['local_code'].apply(lambda x: x[2:] + '.SI')
+    elif exchange == 'NASDAQ':
+        equity_ref_df['y_ticker'] = equity_ref_df['local_code']
+    elif exchange == 'NYSE':
+        equity_ref_df['y_ticker'] = equity_ref_df['local_code']
 
     tickers = equity_ref_df['y_ticker'].unique().tolist()
 

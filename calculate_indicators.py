@@ -8,10 +8,11 @@ from db.model import *
 from download import *
 from db.dao.equity_dao import StocksDao
 import traceback
+from constants import *
 
 if __name__ == '__main__':
 
-    exchange='SGX'
+    exchange = NASDAQ
     dao = StocksDao()
     equity_ref_df = dao.get_all_stocks(exchange)
     eod_df = dao.get_all_stocks_prices(exchange)

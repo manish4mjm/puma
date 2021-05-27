@@ -1,0 +1,4 @@
+NASDAQ = 'NASDAQ'
+HEX = 'HEX'
+SGX = 'SGX'
+NYSE = 'NYSE'
