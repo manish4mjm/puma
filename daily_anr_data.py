@@ -13,7 +13,11 @@ if __name__ == '__main__':
     end_date = dt.date.today().strftime('%Y%m%d')
 
     dao = StocksDao()
+    # Ref data
     equity_ref_df = dao.get_all_stocks(exchange)
+    # Anr data
+    eod_df = dao.get_all_stocks_anr_max_entry_date(exchange)
+    last_entry_dict = dict(zip(eod_df['equity_id'].tolist(), eod_df['last_entry'].tolist()))
 
     conn = PyDSWS.Datastream(username='ZINX001', password='PEACH709')
 
@@ -26,6 +30,8 @@ if __name__ == '__main__':
             data.fillna(0, inplace=True)
             data_df = data[ticker]
             data_df = data_df[data_df['RECNO'] != 0]
+            data_df.index = pd.to_datetime(data_df.index).date
+            data_df = data_df[data_df.index > last_entry_dict[equity_id]]
 
             for idx, row in data_df.iterrows():
                 trade_date = idx

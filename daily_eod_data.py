@@ -7,11 +7,14 @@ import datetime as dt
 if __name__ == '__main__':
 
     exchange = 'SGX'
-    start_date = '2005-01-01'
-    end_date = dt.date.today().strftime('%Y-%m-%d')
 
     dao = StocksDao()
+    # Ref data
     equity_ref_df = dao.get_all_stocks(exchange)
+    # Prices data
+    eod_df = dao.get_all_stocks_prices_max_entry_date(exchange)
+    last_entry_dict = dict(zip(eod_df['equity_id'].tolist(), eod_df['last_entry'].tolist()))
+
     if exchange == 'HEX':
         equity_ref_df['y_ticker'] = equity_ref_df['ric_code']
     elif exchange == 'SGX':
@@ -22,10 +25,13 @@ if __name__ == '__main__':
     for idx1, row1 in equity_ref_df.iterrows():
         ticker = row1['y_ticker']
         equity_id = row1['equity_id']
+
         try:
             insert_list = list()
-            data_one = download_one(ticker, period='10y')
+            data_one = download_one(ticker, period='1y')
             ticker_df = parse_quotes(data_one["chart"]["result"][0])
+            # Filter based on last entry in db
+            ticker_df = ticker_df[ticker_df.index > last_entry_dict[equity_id]]
 
             for idx, row in ticker_df.iterrows():
                 trade_date = idx

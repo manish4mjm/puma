@@ -11,10 +11,13 @@ import traceback
 
 if __name__ == '__main__':
 
-    exchange='SGX'
+    exchange='HEX'
     dao = StocksDao()
     equity_ref_df = dao.get_all_stocks(exchange)
     eod_df = dao.get_all_stocks_prices(exchange)
+    # Calac data
+    last_entry_df = dao.get_all_stocks_prices_max_entry_date(exchange)
+    last_entry_dict = dict(zip(last_entry_df['equity_id'].tolist(), last_entry_df['last_entry'].tolist()))
 
     for idx1, row1 in equity_ref_df.iterrows():
         equity_id = row1['equity_id']
@@ -59,6 +62,9 @@ if __name__ == '__main__':
             indicator_macd = MACD(close=df["adj_close"])
             df['macd'] = indicator_macd.macd()
             # df = df.dropna(how='all)
+
+            # Filter the latest ones
+            df = df[df.index > last_entry_dict[equity_id]]
 
             for idx, row in df.iterrows():
                 trade_date = row['trading_date']

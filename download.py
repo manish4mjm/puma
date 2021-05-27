@@ -23,7 +23,7 @@ def parse_quotes(data):
         adjclose = closes
 
     # quotes = pd.DataFrame({"Adj Close": adjclose, "Volume": volumes, "Close": closes})
-    quotes = pd.DataFrame({"Adj Close": adjclose, "Volume": volumes, "Open": open, "High": high, "Low": low, "Close": closes})
+    quotes = pd.DataFrame({"adj_close": adjclose, "volume": volumes, "open": open, "high": high, "low": low, "close": closes})
     quotes['Ticker'] = ticker
     quotes.index = pd.to_datetime(timestamps, unit="s").date
     quotes.sort_index(inplace=True)

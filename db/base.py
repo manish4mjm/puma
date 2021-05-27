@@ -21,6 +21,5 @@ from sqlalchemy import ForeignKey
 import logging
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects.postgresql import ENUM
-from sqlalchemy.dialects.postgresql import ENUM
-
+from sqlalchemy.sql import label
 Base = declarative_base()
