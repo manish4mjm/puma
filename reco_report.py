@@ -4,8 +4,8 @@ from db.dao.equity_dao import StocksDao
 import traceback
 
 if __name__ == '__main__':
-    exchange = 'HEX'
-    trade_date = '2021-05-26'
+    exchange = 'SGX'
+    trade_date = '2021-05-25'
     dao = StocksDao()
     stock_info_df = dao.get_stock_info_by_date(exchange, trade_date)
     stock_info_df['range'] = ((stock_info_df['adj_close'] - stock_info_df['ema_200']) / stock_info_df['ema_200'])*100
