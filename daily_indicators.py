@@ -62,6 +62,7 @@ if __name__ == '__main__':
             indicator_macd = MACD(close=df["adj_close"])
             df['macd'] = indicator_macd.macd()
             # df = df.dropna(how='all)
+            df.set_index('trading_date', inplace=True)
 
             # Filter the latest ones
             df = df[df.index > last_entry_dict[equity_id]]
