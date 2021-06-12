@@ -35,6 +35,8 @@ class EquityIndicators(Base):
     equity_id = Column(Integer, primary_key=True)
     rsi_6 = Column(Numeric, nullable=False)
     rsi_14 = Column(Numeric, nullable=False)
+    mfi_6 = Column(Numeric, nullable=False)
+    mfi_14 = Column(Numeric, nullable=False)
     boll_up = Column(Numeric, nullable=False)
     boll_lw = Column(Numeric, nullable=False)
     ema_200 = Column(Numeric, nullable=False)
@@ -51,3 +53,13 @@ class EquityAnrData(Base):
     anr_reco = Column(Numeric, nullable=False)
     anr_count = Column(Numeric, nullable=False)
     anr_med = Column(Numeric, nullable=False)
+
+
+class EquityReturns(Base):
+    __tablename__ = 'equity_returns'
+    __table_args__ = ({'schema': 'time_series'})
+    trading_date = Column(Date, primary_key=True)
+    equity_id = Column(Integer, primary_key=True)
+    daily_return = Column(Numeric, nullable=False)
+    daily_log_return = Column(Numeric, nullable=False)
+    cumulative_return = Column(Numeric, nullable=False)

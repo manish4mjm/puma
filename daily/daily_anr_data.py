@@ -5,10 +5,12 @@ import traceback
 import PyDSWS
 import datetime as dt
 from constants import *
+from daily.ffill_anr_data import ffill_anr
 
 if __name__ == '__main__':
 
-    exchange_list = [SGX, HEX, NASDAQ, NYSE]
+    exchange_list = [SGX, HEX]
+    ffill_anr(exchange_list)
 
     for exchange in exchange_list:
 
@@ -34,7 +36,7 @@ if __name__ == '__main__':
                 data_df = data[ticker]
                 data_df = data_df[data_df['RECNO'] != 0]
                 data_df.index = pd.to_datetime(data_df.index).date
-                data_df = data_df[data_df.index > last_entry_dict[equity_id]]
+                data_df = data_df if equity_id not in last_entry_dict else data_df[data_df.index > last_entry_dict[equity_id]]
 
                 for idx, row in data_df.iterrows():
                     trade_date = idx
@@ -42,8 +44,8 @@ if __name__ == '__main__':
                     rec_count = row['RECNO']
                     rec_avg = row['RECCON']
 
-                    equity_anr_data = EquityAnrData(equity_id=equity_id, trading_date=trade_date, anr_reco=rec_avg,
-                                                    anr_count=rec_count, anr_med=rec_med)
+                    equity_anr_data = EquityAnrData(equity_id=equity_id, trading_date=trade_date, anr_reco=float(rec_avg),
+                                                    anr_count=float(rec_count), anr_med=float(rec_med))
                     insert_list.append(equity_anr_data)
 
                 dao.bulk_save(insert_list)

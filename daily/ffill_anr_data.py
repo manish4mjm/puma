@@ -9,13 +9,10 @@ import pandas as pd
 from constants import *
 from constants import *
 
-if __name__ == '__main__':
 
-    exchange_list = [SGX]
-    conn = PyDSWS.Datastream(username='ZINX001', password='PEACH709')
+def ffill_anr(exchange_list):
 
     for exchange in exchange_list:
-
         # start_date = '20160101'
         start_date = dt.date.today().strftime('%Y%m%d')
         end_date = dt.date.today().strftime('%Y%m%d')
@@ -32,7 +29,6 @@ if __name__ == '__main__':
 
         for equity_id in equity_list:
             try:
-
                 # get previous date
                 insert_list = list()
                 prev_date = dt.date.today() - dt.timedelta(days=1)
@@ -47,15 +43,16 @@ if __name__ == '__main__':
                     stock_anr_df = stock_anr_df.fillna(method='ffill')
                     stock_anr_df.index = pd.to_datetime(stock_anr_df.index).date
                     data_df = stock_anr_df[stock_anr_df.index > last_entry_dict[equity_id]]
+                    print('Forward filling equity {} with date range {}'.format(equity_id, date_range))
 
                     for idx, row in data_df.iterrows():
                         trade_date = idx
-                        rec_med = row['anr_med']
-                        rec_count = row['anr_count']
-                        rec_avg = row['anr_reco']
+                        anr_med = row['anr_med']
+                        anr_count = row['anr_count']
+                        anr_reco = row['anr_reco']
 
-                        equity_anr_data = EquityAnrData(equity_id=equity_id, trading_date=trade_date, anr_reco=rec_avg,
-                                                        anr_count=rec_count, anr_med=rec_med)
+                        equity_anr_data = EquityAnrData(equity_id=equity_id, trading_date=trade_date, anr_reco=anr_reco,
+                                                        anr_count=anr_count, anr_med=anr_med)
                         insert_list.append(equity_anr_data)
 
                     dao.bulk_save(insert_list)
@@ -66,3 +63,8 @@ if __name__ == '__main__':
                 traceback.print_exc()
             finally:
                 dao.rollback()
+
+
+if __name__ == '__main__':
+    exchange_list = [SGX]
+    ffill_anr(exchange_list)

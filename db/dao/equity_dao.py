@@ -39,7 +39,6 @@ class StocksDao(GenericSqlAlchemyDao):
         data_df = pd.read_sql(statement, self.session.bind)
         return data_df
 
-
     def get_all_stocks_prices_max_entry_date(self, exchange):
         filters = [(Equity.exchange == exchange)]
 
@@ -87,7 +86,7 @@ class StocksDao(GenericSqlAlchemyDao):
                                        EquityEodData.close, EquityEodData.adj_close, EquityAnrData.anr_count,
                                        EquityAnrData.anr_med, EquityAnrData.anr_reco,
                                        EquityIndicators.rsi_14, EquityIndicators.rsi_6, EquityIndicators.macd,
-                                       EquityIndicators.ema_50,
+                                       EquityIndicators.ema_50, EquityIndicators.mfi_14, EquityIndicators.mfi_6,
                                        EquityIndicators.ema_100, EquityIndicators.ema_200, EquityIndicators.macd) \
             .join(Equity, Equity.equity_id == EquityEodData.equity_id) \
             .join(EquityAnrData, and_(EquityAnrData.equity_id == EquityEodData.equity_id,

@@ -9,10 +9,11 @@ from download import *
 from db.dao.equity_dao import StocksDao
 import traceback
 from constants import *
+from ta.volume import MFIIndicator
 
 if __name__ == '__main__':
 
-    exchange_list = [SGX, HEX, NASDAQ, NYSE]
+    exchange_list = [SGX, HEX]
 
     for exchange in exchange_list:
         dao = StocksDao()
@@ -58,6 +59,14 @@ if __name__ == '__main__':
                 indicator_rsi_14 = RSIIndicator(close=df["adj_close"], window=14)
                 df['rsi_14'] = indicator_rsi_14.rsi()
 
+                # MFI Indicator
+                indicator_mfi_6 = MFIIndicator(close=df["adj_close"], high=df["high"], low=df["low"],
+                                               volume=df["volume"], window=6)
+                df['mfi_6'] = indicator_mfi_6.money_flow_index()
+                indicator_mfi_14 = MFIIndicator(close=df["adj_close"], high=df["high"], low=df["low"],
+                                                volume=df["volume"], window=14)
+                df['mfi_14'] = indicator_mfi_14.money_flow_index()
+
                 # MACD Indicator
                 indicator_macd = MACD(close=df["adj_close"])
                 df['macd'] = indicator_macd.macd()
@@ -72,11 +81,13 @@ if __name__ == '__main__':
                     ema_50 = row['ema_50']
                     rsi_14 = row['rsi_14']
                     rsi_6 = row['rsi_6']
+                    mfi_6 = row['mfi_6']
+                    mfi_14 = row['mfi_14']
                     macd = row['macd']
 
                     equity_indicators = EquityIndicators(equity_id=equity_id, trading_date=trade_date, boll_up=bb_bbh,
                                                          boll_lw=bb_bbl, ema_200=ema_200, ema_100=ema_100, ema_50=ema_50,
-                                                         rsi_14=rsi_14, rsi_6=rsi_6, macd=macd)
+                                                         rsi_14=rsi_14, rsi_6=rsi_6, macd=macd, mfi_6=mfi_6, mfi_14=mfi_14)
                     insert_list.append(equity_indicators)
 
                 dao.bulk_save(insert_list)

@@ -1,7 +1,9 @@
 import pandas as pd
 import PyDSWS
 
-fields = ['RIC', 'NAME', 'INDM2', 'INDM3', 'LOC', 'MNEM', 'ISIN']
+# fields = ['RIC', 'NAME', 'INDM2', 'INDM3', 'LOC', 'MNEM', 'ISIN']
+
+fields = ['RECCON', 'RECMED', 'RECNO', 'RECSTD', 'RECSBUY', 'RECSSELL',   'RECBUY', 'RECSELL', 'RECMBUY', 'RECHOLD', 'RECMBUY', 'RECMSELL']
 
 ref_df = pd.read_csv(r'C:\work-area\data\us\stock_info_all.csv')
 

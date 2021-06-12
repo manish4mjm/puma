@@ -7,7 +7,7 @@ from constants import *
 
 if __name__ == '__main__':
 
-    exchange_list = [NASDAQ, NYSE, SGX, HEX]
+    exchange_list = [SGX, HEX]
 
     for exchange in exchange_list:
 
