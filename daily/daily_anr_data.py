@@ -9,12 +9,12 @@ from daily.ffill_anr_data import ffill_anr
 
 if __name__ == '__main__':
 
-    exchange_list = [SGX, HEX]
+    exchange_list = [NYSE, NASDAQ]
     ffill_anr(exchange_list)
 
     for exchange in exchange_list:
 
-        # start_date = '20160101'
+        start_date = '20211018'
         run_date = dt.date.today().strftime('%Y%m%d')
         dao = StocksDao()
         # Ref data
@@ -30,7 +30,7 @@ if __name__ == '__main__':
             equity_id = row1['equity_id']
             try:
                 insert_list = list()
-                data = conn.get_data(tickers=ticker, fields=['RECMED', 'RECNO', 'RECCON'], start=run_date,
+                data = conn.get_data(tickers=ticker, fields=['RECMED', 'RECNO', 'RECCON'], start=start_date,
                                      end=run_date)
                 data.fillna(0, inplace=True)
                 data_df = data[ticker]

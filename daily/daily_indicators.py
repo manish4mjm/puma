@@ -13,7 +13,7 @@ from constants import *
 
 if __name__ == '__main__':
 
-    exchange_list = [SGX, HEX]
+    exchange_list = [NYSE, NASDAQ]
 
     for exchange in exchange_list:
 
@@ -70,12 +70,12 @@ if __name__ == '__main__':
                 df['rsi_14'] = indicator_rsi_14.rsi()
 
                 # MFI Indicator
-                indicator_msi_6 = MFIIndicator(close=df["adj_close"], high=df["high"], low=df["low"],
+                indicator_mfi_6 = MFIIndicator(close=df["adj_close"], high=df["high"], low=df["low"],
                                                volume=df["volume"], window=6)
-                df['indicator_msi_6'] = indicator_msi_6.money_flow_index()
-                indicator_msi_14 = MFIIndicator(close=df["adj_close"], high=df["high"], low=df["low"],
-                                               volume=df["volume"], window=14)
-                df['indicator_msi_14'] = indicator_msi_14.money_flow_index()
+                df['mfi_6'] = indicator_mfi_6.money_flow_index()
+                indicator_mfi_14 = MFIIndicator(close=df["adj_close"], high=df["high"], low=df["low"],
+                                                volume=df["volume"], window=14)
+                df['mfi_14'] = indicator_mfi_14.money_flow_index()
 
                 # MACD Indicator
                 indicator_macd = MACD(close=df["adj_close"])

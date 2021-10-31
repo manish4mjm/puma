@@ -49,9 +49,9 @@ def download_one(ticker: str, interval: str = "1d", period: str = "1y"):
     data: dict
         Scraped dictionary of information.
     """
-    base_url = 'https://query1.finance.yahoo.com'
+    base_url = 'https://query2.finance.yahoo.com'
 
-    params = dict(range=period, interval=interval.lower(), includePrePost=False)
+    params = dict(range=period, interval=interval.lower(), includePrePost=False, )
 
     url = "{}/v8/finance/chart/{}".format(base_url, ticker)
     data = requests.get(url=url, params=params)

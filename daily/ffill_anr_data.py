@@ -66,5 +66,5 @@ def ffill_anr(exchange_list):
 
 
 if __name__ == '__main__':
-    exchange_list = [SGX]
+    exchange_list = [NYSE, NASDAQ]
     ffill_anr(exchange_list)

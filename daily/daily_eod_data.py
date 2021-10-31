@@ -4,10 +4,11 @@ from db.dao.equity_dao import StocksDao
 import traceback
 import datetime as dt
 from constants import *
+import yfinance as yf
 
 if __name__ == '__main__':
 
-    exchange_list = [SGX, HEX]
+    exchange_list = [NYSE, NASDAQ]
 
     for exchange in exchange_list:
 
@@ -35,19 +36,25 @@ if __name__ == '__main__':
 
             try:
                 insert_list = list()
-                data_one = download_one(ticker, period='1y')
-                ticker_df = parse_quotes(data_one["chart"]["result"][0])
+                # data_one = download_one(ticker, period='1y')
+                # ticker_df = parse_quotes(data_one["chart"]["result"][0])
+                msft = yf.Ticker(ticker)
+
+                # get historical market data
+                ticker_df = msft.history(period="max")
+                ticker_df.index = pd.to_datetime(ticker_df.index).date
+
                 # Filter based on last entry in db
                 ticker_df = ticker_df[ticker_df.index > last_entry_dict[equity_id]]
 
                 for idx, row in ticker_df.iterrows():
                     trade_date = idx
-                    open = row['open']
-                    high = row['high']
-                    low = row['low']
-                    close = row['close']
-                    volume = row['volume']
-                    adj_close = row['adj_close']
+                    open = row['Open']
+                    high = row['High']
+                    low = row['Low']
+                    close = row['Close']
+                    volume = row['Volume']
+                    adj_close = row['Close']
 
                     equity_eod_data = EquityEodData(equity_id=equity_id, trading_date=trade_date, open=open, low=low,
                                                     high=high, close=close, adj_close=adj_close, volume=volume,
@@ -58,7 +65,7 @@ if __name__ == '__main__':
                 dao.commit()
                 print('Completed insertion for ticker {}'.format(ticker))
             except Exception as e:
-                print('Data not found for ticker {} with error as {}'.format(ticker, data_one['chart']['error']))
+                print('Data not found for ticker {} '.format(ticker))
                 traceback.print_exc()
             finally:
                 dao.rollback()
